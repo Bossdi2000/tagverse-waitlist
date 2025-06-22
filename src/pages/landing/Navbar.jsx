@@ -22,7 +22,7 @@ const Navbar = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
-              src="/Wait-list.jpeg"
+              src="/BAG1.jpeg"
               alt="TagVerse Logo"
               sx={{
                 height: '40px',

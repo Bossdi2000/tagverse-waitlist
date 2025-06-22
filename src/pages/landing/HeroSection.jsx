@@ -24,14 +24,14 @@ const StyledHeroBox = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: "url(/BGC.jpeg)",
+    backgroundImage: "url(/BAG1.jpeg)",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    opacity: 0.15,
-    backgroundColor: "rgba(0, 0, 0, 0.85)",
+    opacity: 0.25,
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     zIndex: 1,
-    animation: "backgroundPan 20s ease-in-out infinite", // Lively animation
+    animation: "backgroundPan 20s ease-in-out infinite",
     "@keyframes backgroundPan": {
       "0%": { transform: "scale(1) translate(0, 0)" },
       "50%": { transform: "scale(1.1) translate(-5%, -5%)" },
@@ -49,7 +49,7 @@ const FloatingOrb = styled(Box)(({ theme, size = 300, top, right, bottom, left, 
   borderRadius: "50%",
   opacity: 0.05,
   background: "radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, transparent 70%)",
-  animation: `float 15s ease-in-out infinite ${delay}s`, // Faster animation to match
+  animation: `float 15s ease-in-out infinite ${delay}s`,
   top,
   right,
   bottom,
@@ -73,7 +73,7 @@ const GridOverlay = styled(Box)({
   `,
   backgroundSize: "50px 50px",
   zIndex: 2,
-  animation: "gridPulse 10s ease-in-out infinite", // Subtle pulse for liveliness
+  animation: "gridPulse 10s ease-in-out infinite",
   "@keyframes gridPulse": {
     "0%, 100%": { opacity: 0.03 },
     "50%": { opacity: 0.05 },
@@ -97,6 +97,7 @@ const GradientText = styled(Typography)({
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
+  display: "inline",
 })
 
 const AnimatedBox = styled(Box)(({ delay = 0, visible }) => ({
@@ -136,7 +137,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 const StyledButton = styled(Button)(({ loading, submitted, theme }) => ({
   height: "56px",
-  padding: "0 24px", // Reduced padding
+  padding: "0 24px",
   fontWeight: 600,
   fontSize: "1rem",
   fontFamily: "'Inter', sans-serif",
@@ -144,28 +145,32 @@ const StyledButton = styled(Button)(({ loading, submitted, theme }) => ({
   borderRadius: "8px",
   transition: "all 0.3s ease",
   transform: "scale(1)",
-  minWidth: "120px", // Reduced width
+  minWidth: "120px",
   backgroundColor: submitted ? "#10b981" : loading ? "#6b7280" : "#00ff88",
-  color: submitted ? "#ffffff" : loading ? "#d1d5db" : "#00ff88",
+  color: submitted ? "#ffffff" : loading ? "#d1d5db" : "#000000",
   border: "none",
+  textShadow: submitted ? "none" : loading ? "none" : "0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 0, 0, 0.4)",
+  fontWeight: submitted ? 600 : loading ? 600 : 700,
   "&:hover": {
     transform: "scale(1.05)",
     boxShadow: submitted ? "none" : "0 8px 25px rgba(34, 197, 94, 0.4)",
     backgroundColor: submitted ? "#10b981" : loading ? "#6b7280" : "#00cc6a",
-    color: "#00ff88",
+    color: submitted ? "#ffffff" : loading ? "#d1d5db" : "#000000",
     border: "none",
+    textShadow: submitted ? "none" : loading ? "none" : "0 0 15px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 0, 0, 0.5)",
   },
   "&:active": { transform: "scale(0.95)" },
   "&:disabled": {
     backgroundColor: "#6b7280",
     color: "#d1d5db",
     border: "none",
+    textShadow: "none",
   },
   [theme.breakpoints.down("sm")]: {
     height: "48px",
     padding: "0 20px",
     fontSize: "0.875rem",
-    minWidth: "100px", // Further reduced width
+    minWidth: "100px",
   },
 }))
 
@@ -187,10 +192,12 @@ const FollowButton = styled(Button)(({ theme, completed }) => ({
     transform: "scale(1.05)",
   },
   [theme.breakpoints.down("sm")]: {
-    height: "40px",
-    padding: "0 20px",
-    fontSize: "0.8rem",
-    maxWidth: "250px",
+    height: "36px",
+    padding: "0 12px",
+    fontSize: "0.75rem",
+    minWidth: "100px",
+    maxWidth: "none",
+    flex: 1,
   },
 }))
 
@@ -235,12 +242,12 @@ const FeatureCard = styled(Card)(({ theme }) => ({
 const FormContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
-  maxWidth: "600px",
+  maxWidth: "500px", // Reduced from 600px
   margin: "0 auto",
   marginBottom: theme.spacing(6),
-  [theme.breakpoints.down("sm")]: { 
-    flexDirection: "column", 
-    maxWidth: "90%",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    maxWidth: "280px", // Reduced from 300px for smaller email input
     marginBottom: theme.spacing(4),
   },
 }))
@@ -251,17 +258,17 @@ const FeaturesContainer = styled(Box)(({ theme }) => ({
   maxWidth: "1400px",
   margin: "0 auto",
   padding: theme.spacing(0, 1),
-  [theme.breakpoints.down("lg")]: { 
-    maxWidth: "1000px", 
-    gap: theme.spacing(2) 
+  [theme.breakpoints.down("lg")]: {
+    maxWidth: "1000px",
+    gap: theme.spacing(2),
   },
-  [theme.breakpoints.down("md")]: { 
-    maxWidth: "700px", 
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "700px",
     gap: theme.spacing(1.5),
     padding: theme.spacing(0, 0.5),
   },
-  [theme.breakpoints.down("sm")]: { 
-    flexDirection: "column", 
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
     maxWidth: "90%",
     gap: theme.spacing(2),
     padding: theme.spacing(0, 1),
@@ -274,6 +281,22 @@ const FeatureCardWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: { minWidth: "100%" },
 }))
 
+// New styled component for social buttons container
+const SocialButtonsContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(4),
+  [theme.breakpoints.down("sm")]: {
+    gap: theme.spacing(1), // Reduced gap on mobile for better fit
+    flexWrap: "nowrap", // Ensure buttons stay on one line
+    overflowX: "auto", // Allow horizontal scroll if needed
+    paddingBottom: theme.spacing(1), // Add some padding for scroll bar
+  },
+}))
+
 const HeroSection = () => {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -282,9 +305,50 @@ const HeroSection = () => {
   const [followTwitter, setFollowTwitter] = useState(false)
   const [followTelegram, setFollowTelegram] = useState(false)
   const [followDiscord, setFollowDiscord] = useState(false)
+  const [typedText, setTypedText] = useState("")
+  const [showCursor, setShowCursor] = useState(true)
 
   useEffect(() => {
     setIsVisible(true)
+    const fullText = "Join the Waitlist"
+    let index = 0
+    let isDeleting = false
+    let isPaused = false
+
+    const typeWriterEffect = () => {
+      if (isPaused) {
+        isPaused = false
+        return
+      }
+
+      if (!isDeleting && index <= fullText.length) {
+        setTypedText(fullText.slice(0, index))
+        index++
+      } else if (!isDeleting && index > fullText.length) {
+        isPaused = true
+        setTimeout(() => {
+          isDeleting = true
+          typeWriterEffect()
+        }, 2000) // Pause for 2 seconds before deleting
+        return
+      } else if (isDeleting && index > 0) {
+        setTypedText(fullText.slice(0, index - 1))
+        index--
+      } else if (isDeleting && index === 0) {
+        isDeleting = false
+        isPaused = true
+        setTimeout(() => {
+          typeWriterEffect()
+        }, 500) // Pause for 0.5 seconds before typing again
+        return
+      }
+
+      setTimeout(typeWriterEffect, isDeleting ? 100 : 150)
+    }
+
+    const startTyping = setTimeout(typeWriterEffect, 500)
+
+    return () => clearTimeout(startTyping)
   }, [])
 
   const allTasksCompleted = followTwitter && followTelegram && followDiscord
@@ -358,10 +422,22 @@ const HeroSection = () => {
                 px: { xs: 1, sm: 2 },
               }}
             >
-              Join the{" "}
-              <GradientText component="span" variant="inherit">
-                Waitlist
-              </GradientText>
+              Join the <GradientText variant="inherit">{typedText.slice(9) || ""}</GradientText>
+              {typedText.length < 9 && typedText}
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  width: "3px",
+                  height: "1em",
+                  backgroundColor: "#00ff88",
+                  animation: "blink 1s infinite",
+                  "@keyframes blink": {
+                    "0%, 50%": { opacity: 1 },
+                    "51%, 100%": { opacity: 0 },
+                  },
+                }}
+              />
             </Typography>
           </AnimatedBox>
 
@@ -395,14 +471,7 @@ const HeroSection = () => {
             >
               Follow us to join the waitlist:
             </Typography>
-            <Box
-              display="flex"
-              flexDirection={{ xs: "column", sm: "row" }}
-              justifyContent="center"
-              alignItems="center"
-              gap={{ xs: 1.5, sm: 2 }}
-              mb={4}
-            >
+            <SocialButtonsContainer>
               <FollowButton
                 component={Link}
                 href={socialLinks.twitter}
@@ -411,7 +480,7 @@ const HeroSection = () => {
                 completed={followTwitter}
                 onClick={() => handleFollowClick("twitter")}
               >
-                {followTwitter ? "✓ Followed Twitter" : "Follow on Twitter"}
+                {followTwitter ? "✓ Twitter" : "Twitter"}
               </FollowButton>
               <FollowButton
                 component={Link}
@@ -421,7 +490,7 @@ const HeroSection = () => {
                 completed={followTelegram}
                 onClick={() => handleFollowClick("telegram")}
               >
-                {followTelegram ? "✓ Joined Telegram" : "Join on Telegram"}
+                {followTelegram ? "✓ Telegram" : "Telegram"}
               </FollowButton>
               <FollowButton
                 component={Link}
@@ -431,9 +500,9 @@ const HeroSection = () => {
                 completed={followDiscord}
                 onClick={() => handleFollowClick("discord")}
               >
-                {followDiscord ? "✓ Joined Discord" : "Join on Discord"}
+                {followDiscord ? "✓ Discord" : "Discord"}
               </FollowButton>
-            </Box>
+            </SocialButtonsContainer>
           </AnimatedBox>
 
           <AnimatedBox visible={isVisible} delay={600}>
@@ -472,7 +541,7 @@ const HeroSection = () => {
                           },
                         }}
                       />
-                      <span>Joining...</span>
+                      <span style={{ color: "#000000", textShadow: "0 0 10px rgba(0, 0, 0, 0.8)" }}>Joining...</span>
                     </Box>
                   ) : isSubmitted ? (
                     "✓ Joined!"
@@ -481,38 +550,6 @@ const HeroSection = () => {
                   )}
                 </StyledButton>
               </FormContainer>
-            </Box>
-          </AnimatedBox>
-
-          <AnimatedBox visible={isVisible} delay={800}>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "rgba(156, 213, 219, 0.8)",
-                mb: 2,
-                fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
-                fontWeight: 500,
-                fontFamily: "'Maximal', 'Montserrat', sans-serif",
-              }}
-            >
-              Backed by
-            </Typography>
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              gap={{ xs: 1.5, sm: 2 }}
-              flexWrap="wrap"
-              mb={{ xs: 6, sm: 8 }}
-              px={{ xs: 2, sm: 0 }}
-            >
-              {backers.map((backer, index) => (
-                <AnimatedBox key={index} visible={isVisible} delay={1000 + index * 100}>
-                  <BackerLogo bgcolor={backer.bg} istext={backer.isText}>
-                    {backer.name}
-                  </BackerLogo>
-                </AnimatedBox>
-              ))}
             </Box>
           </AnimatedBox>
 
@@ -573,6 +610,38 @@ const HeroSection = () => {
                 </FeatureCardWrapper>
               ))}
             </FeaturesContainer>
+          </AnimatedBox>
+
+          <AnimatedBox visible={isVisible} delay={1600}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "rgba(156, 213, 219, 0.8)",
+                mb: 2,
+                fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+                fontWeight: 500,
+                fontFamily: "'Maximal', 'Montserrat', sans-serif",
+              }}
+            >
+              Backed by
+            </Typography>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={{ xs: 1.5, sm: 2 }}
+              flexWrap="wrap"
+              mb={{ xs: 6, sm: 8 }}
+              px={{ xs: 2, sm: 0 }}
+            >
+              {backers.map((backer, index) => (
+                <AnimatedBox key={index} visible={isVisible} delay={1000 + index * 100}>
+                  <BackerLogo bgcolor={backer.bg} istext={backer.isText}>
+                    {backer.name}
+                  </BackerLogo>
+                </AnimatedBox>
+              ))}
+            </Box>
           </AnimatedBox>
         </Box>
       </ContentContainer>
