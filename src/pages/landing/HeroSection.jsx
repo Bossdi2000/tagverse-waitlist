@@ -201,34 +201,41 @@ const FollowButton = styled(Button)(({ theme, completed }) => ({
     boxShadow: "0 0 8px rgba(34, 197, 94, 0.4)",
   },
   [theme.breakpoints.down("sm")]: {
-    height: "36px",
-    padding: "0 12px",
-    fontSize: "0.75rem",
-    minWidth: "100px",
-    maxWidth: "none",
-    flex: 1,
+    height: "32px",
+    padding: "0 10px",
+    fontSize: "0.7rem",
+    minWidth: "80px",
   },
 }))
 
-const BackerLogo = styled(Box)(({ bgcolor, istext, theme }) => ({
+const BackerLogo = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: istext ? "auto" : 36,
-  height: istext ? "auto" : 36,
-  backgroundColor: istext ? "transparent" : bgcolor,
-  borderRadius: istext ? 0 : "6px",
-  color: "#f2f2f2",
-  fontWeight: "bold",
-  fontSize: istext ? "1rem" : "14px",
-  padding: istext ? "8px 12px" : 0,
-  boxShadow: istext ? "none" : "0 4px 12px rgba(0, 0, 0, 0.3)",
+  gap: theme.spacing(1), // Space between logo and text
   transition: "transform 0.3s ease",
   "&:hover": { transform: "scale(1.1)" },
+  "& img": {
+    width: 36,
+    height: 36,
+    objectFit: "contain",
+    borderRadius: "6px",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+  },
+  "& .MuiTypography-root": {
+    color: "#f2f2f2",
+    fontWeight: "bold",
+    fontSize: "1rem",
+    fontFamily: "'Inter', sans-serif",
+  },
   [theme.breakpoints.down("sm")]: {
-    width: istext ? "auto" : 30,
-    height: istext ? "auto" : 30,
-    fontSize: istext ? "0.875rem" : "12px",
+    "& img": {
+      width: 30,
+      height: 30,
+    },
+    "& .MuiTypography-root": {
+      fontSize: "0.875rem",
+    },
   },
 }))
 
@@ -236,14 +243,14 @@ const FeatureCard = styled(Card)(({ theme }) => ({
   background: "rgba(0, 0, 0, 0.6)",
   backdropFilter: "blur(10px)",
   borderRadius: "12px",
-  boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.4), 0 0 10px rgba(34, 197, 94, 0.3)",
   transition: "transform 0.3s ease, box-shadow 0.3s ease",
   height: "100%",
   marginBottom: theme.spacing(3),
   cursor: "pointer",
   "&:hover": {
     transform: "translateY(-5px)",
-    boxShadow: "0 15px 40px rgba(0,0,0,0.5)",
+    boxShadow: "0 15px 40px rgba(0,0,0,0.5), 0 0 15px rgba(34, 197, 94, 0.5)",
     borderColor: "#00ff88",
   },
   [theme.breakpoints.down("sm")]: {
@@ -496,7 +503,7 @@ const HeroSection = () => {
   }
 
   const backers = [
-    { name: "Maximal", bg: "transparent", isText: true },
+    { name: "Maximals", image: "/Max.jpeg", isText: false },
   ]
 
   const features = [
@@ -569,7 +576,7 @@ const HeroSection = () => {
                 <Typography
                   variant="h2"
                   sx={{
-                    fontSize: { xs: "32px", sm: "36px", md: "40px" },
+                    fontSize: { xs: "24px", sm: "28px", md: "32px" },
                     fontWeight: 700,
                     color: "#f2f2f2",
                     mb: 2,
@@ -582,7 +589,7 @@ const HeroSection = () => {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontSize: { xs: "18px", sm: "20px", md: "22px" },
+                    fontSize: { xs: "14px", sm: "16px", md: "18px" },
                     color: "#f2f2f2",
                     mb: 2,
                     lineHeight: 1.6,
@@ -718,6 +725,7 @@ const HeroSection = () => {
                         }
                         placement="top"
                         arrow
+                        sx={{ [theme => theme.breakpoints.down("sm")]: { pointerEvents: "none" } }}
                       >
                         <FeatureCard onClick={() => handleOpenModal(feature)}>
                           <CardContent sx={{ p: theme => theme.spacing(2.5) }}>
@@ -814,7 +822,7 @@ const HeroSection = () => {
                   fontFamily: "'Inter', sans-serif",
                 }}
               >
-                Supported by voices across Web3.
+                Trusted By:
               </Typography>
               <Box
                 display="flex"
@@ -823,14 +831,15 @@ const HeroSection = () => {
                 gap={{ xs: 1.5, sm: 2 }}
                 flexWrap="wrap"
                 sx={{
-                  mb: { xs: theme => theme.spacing(6), sm: theme => theme.spacing(8) }, // Fixed: Proper syntax
+                  mb: { xs: theme => theme.spacing(6), sm: theme => theme.spacing(8) },
                   px: { xs: theme => theme.spacing(2), sm: 0 },
                 }}
               >
                 {backers.map((backer, index) => (
                   <AnimatedBox key={index} visible={isVisible} delay={1000 + index * 100}>
-                    <BackerLogo bgcolor={backer.bg} istext={backer.isText}>
-                      {backer.name}
+                    <BackerLogo>
+                      {backer.image && <img src={backer.image} alt={backer.name} />}
+                      <Typography>{backer.name}</Typography>
                     </BackerLogo>
                   </AnimatedBox>
                 ))}
